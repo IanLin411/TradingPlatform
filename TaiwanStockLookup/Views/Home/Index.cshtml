@@ -1,8 +1,55 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "首頁";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">歡迎使用交易平台</h1>
+    <p class="lead">您的全方位股票交易與資訊平台</p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">台股查詢</h5>
+                <p class="card-text">查詢台灣股市個股資訊，包含股價、成交量等即時資料。</p>
+                <a href="@Url.Action("Index", "Stock")" class="btn btn-primary">開始查詢</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">美股實時報價</h5>
+                <p class="card-text">觀看那斯達克綜合指數實時K線圖，數據每5秒自動更新。</p>
+                <a href="@Url.Action("Index", "USStock")" class="btn btn-success">查看美股</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>平台特色</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6><i class="fas fa-chart-line"></i> 即時資料</h6>
+                        <p>提供最新的股市資訊與即時報價</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6><i class="fas fa-globe"></i> 多市場覆蓋</h6>
+                        <p>涵蓋台股與美股主要指數</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6><i class="fas fa-mobile-alt"></i> 響應式設計</h6>
+                        <p>支援各種裝置的最佳顯示效果</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

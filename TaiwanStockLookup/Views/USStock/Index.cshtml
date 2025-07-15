@@ -1,0 +1,125 @@
+@{
+    ViewData["Title"] = "美股實時報價";
+}
+
+<div class="text-center">
+    <h1 class="display-4">美股實時報價</h1>
+    <p class="lead">那斯達克綜合指數 (NASDAQ Composite) 實時K線圖</p>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>那斯達克綜合指數 (^IXIC)</h5>
+                <small class="text-muted">每5秒自動更新</small>
+            </div>
+            <div class="card-body">
+                <div id="nasdaq-chart" style="height: 500px;">
+                    <!-- TradingView Chart Widget -->
+                    <div class="tradingview-widget-container">
+                        <div id="tradingview_nasdaq"></div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <h6 class="card-title">當前價格</h6>
+                                <h4 id="current-price">載入中...</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h6 class="card-title">漲跌額</h6>
+                                <h4 id="change-amount">載入中...</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <h6 class="card-title">漲跌幅</h6>
+                                <h4 id="change-percent">載入中...</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body">
+                                <h6 class="card-title">更新時間</h6>
+                                <h6 id="update-time">載入中...</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://s3.tradingview.com/tv.js"></script>
+    <script>
+        // TradingView Chart
+        new TradingView.widget({
+            "width": "100%",
+            "height": "400",
+            "symbol": "NASDAQ:IXIC",
+            "interval": "1",
+            "timezone": "America/New_York",
+            "theme": "light",
+            "style": "1",
+            "locale": "zh_TW",
+            "toolbar_bg": "#f1f3f6",
+            "enable_publishing": false,
+            "hide_top_toolbar": false,
+            "hide_legend": false,
+            "save_image": false,
+            "container_id": "tradingview_nasdaq",
+            "studies": [
+                "Volume@tv-basicstudies"
+            ]
+        });
+
+        // 模擬實時數據更新 (每5秒)
+        function updateNasdaqData() {
+            // 模擬數據 - 實際應用中應該從真實API獲取
+            const mockData = {
+                price: (15000 + Math.random() * 1000).toFixed(2),
+                change: (Math.random() * 200 - 100).toFixed(2),
+                changePercent: (Math.random() * 2 - 1).toFixed(2),
+                updateTime: new Date().toLocaleString('zh-TW')
+            };
+
+            // 更新顯示
+            document.getElementById('current-price').textContent = mockData.price;
+            document.getElementById('change-amount').textContent = mockData.change;
+            document.getElementById('change-percent').textContent = mockData.changePercent + '%';
+            document.getElementById('update-time').textContent = mockData.updateTime;
+
+            // 根據漲跌更新卡片顏色
+            const changeCard = document.querySelector('#change-amount').closest('.card');
+            const percentCard = document.querySelector('#change-percent').closest('.card');
+            
+            if (parseFloat(mockData.change) >= 0) {
+                changeCard.className = 'card bg-success text-white';
+                percentCard.className = 'card bg-success text-white';
+            } else {
+                changeCard.className = 'card bg-danger text-white';
+                percentCard.className = 'card bg-danger text-white';
+            }
+        }
+
+        // 頁面載入後立即更新一次
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNasdaqData();
+            
+            // 每5秒更新一次
+            setInterval(updateNasdaqData, 5000);
+        });
+    </script>
+}
