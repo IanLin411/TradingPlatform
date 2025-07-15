@@ -1,0 +1,45 @@
+@model TaiwanStockLookup.Models.StockSearchModel
+
+@{
+    ViewData["Title"] = "台股查詢";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">台股收盤價查詢</h2>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="Search" method="post">
+                        <div class="mb-3">
+                            <label asp-for="StockCode" class="form-label">股票代號</label>
+                            <input asp-for="StockCode" class="form-control" placeholder="例如: 2330" />
+                            <span asp-validation-for="StockCode" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">查詢</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="alert alert-info">
+                <h5>常用股票代號:</h5>
+                <ul class="mb-0">
+                    <li>2330 - 台積電</li>
+                    <li>2317 - 鴻海</li>
+                    <li>2454 - 聯發科</li>
+                    <li>2308 - 台達電</li>
+                    <li>2412 - 中華電</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
